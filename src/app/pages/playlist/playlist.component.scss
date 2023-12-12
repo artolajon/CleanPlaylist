@@ -1,0 +1,30 @@
+form>div>*:not(:last-child){
+  margin-bottom: 1rem;
+}
+
+.card{
+  margin-bottom: 3rem;
+}
+
+.song{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: .5rem 0rem;
+
+  &:not(:last-child){
+    border-bottom: 1px white solid;
+  }
+  .artist-names{
+    font-size: .8rem;
+    opacity: .8;
+    .artist:not(:last-child)::after{
+      content: ', ';
+    }
+  }
+}
+
+
+.spotify{
+  background-color: #1DB954 !important;
+}

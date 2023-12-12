@@ -1,0 +1,15 @@
+<div class="container">
+  <h1 [routerLink]="'/'">No<span class="secondary-text">Remix</span></h1>
+  <router-outlet class="main"></router-outlet>
+  <footer>
+    <ul>
+      <li routerLink="/about">ABOUT</li>
+      <li routerLink="/contact">CONTACT</li>
+      <li routerLink="/privacy">PRIVACY</li>
+    </ul>
+    <div>
+      &copy;{{year}} NoRemix | Powered by Spotify Api
+    </div>
+  </footer>
+
+</div>

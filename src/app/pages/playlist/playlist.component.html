@@ -1,0 +1,20 @@
+<form [formGroup]="playlistForm" (submit)="connectToSpotify()">
+  <div class="card">
+    <input type="text" formControlName="name" placeholder="Playlist name">
+    <textarea type="text" formControlName="description" placeholder="Description" [rows]="4"></textarea>
+    <div class="button-row">
+      <button type="button" (click)="reset()" class="secondary">Reset</button>
+      <button [disabled]="!playlistForm.valid" class="principal spotify">OPEN SPOTIFY</button>
+    </div>
+  </div>
+</form>
+
+<div class="card">
+  <div *ngFor="let song of songs" class="song">
+    <span class="title">{{song.name}}</span>
+    <span class="artist-names">
+      <span class="artist" *ngFor="let artist of song.artists">{{artist.name}}</span>
+    </span>
+  </div>
+</div>
+

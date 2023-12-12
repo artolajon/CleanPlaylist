@@ -1,0 +1,11 @@
+<form [formGroup]="artistsForm" (submit)="searchArtists()">
+  <div class="card">
+    <label>Artist names</label>
+    <textarea rows="10" formControlName="names" placeholder="Paste (or write) artist list here"></textarea>
+    <div class="button-row">
+      <button [disabled]="!artistsForm.valid" class="principal">Search for artists</button>
+    </div>
+  </div>
+
+
+</form>

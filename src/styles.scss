@@ -1,0 +1,89 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~typeface-roboto';
+body{
+  margin: 0;
+  text-align: center;
+  background-color: #141414;
+}
+
+*{
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+.card{
+  background-color: #323232;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  max-width: 500px;
+  width: 75%;
+  margin: auto;
+}
+
+input, textarea, select{
+  border-radius: 10px;
+  border: none;
+  background-color: #1E1E1E;
+  text-align: center;
+
+}
+
+input{
+  line-height: 2rem;
+}
+select{
+  height: 2rem;
+}
+
+button{
+
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color .3s ease;
+  cursor: pointer;
+
+
+  &.principal{
+    background-color: #c17618;
+    color: #fff;
+    border: none;
+    &:hover {
+      background-color: #e38612;
+    }
+  }
+
+  &.secondary{
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    &:hover {
+      background-color: #fff;
+      color: #000;
+    }
+  }
+
+  &:disabled{
+    background-color: #EFEFEF4D !important;
+    cursor: default;
+  }
+
+}
+
+img{
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.button-row{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}

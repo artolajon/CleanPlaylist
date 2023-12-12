@@ -1,0 +1,12 @@
+<div *ngIf="errors.length > 0">
+  <p>Oops! We've encountered {{errors.length}} errors</p>
+  <ul>
+    <li (click)="showErrors = !showErrors">{{showErrors?'Hide errors':'Show errors'}}</li>
+    <li (click)="emitRetry()">Retry</li>
+  </ul>
+  <div *ngIf="showErrors" class="details">
+    <p *ngFor="let error of errors">{{error.message}}</p>
+  </div>
+
+</div>
+
