@@ -1,0 +1,30 @@
+.image{
+  border-radius: 0;
+}
+
+.album{
+  padding: 1rem;
+}
+
+.header{
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding-bottom: .5rem;
+  .data{
+    text-align: left;
+  }
+}
+
+
+.artist-names{
+  font-size: .8rem;
+  opacity: .8;
+  .artist:not(:last-child)::after{
+    content: ', ';
+  }
+}
+
+.song {
+  text-align: left;
+}

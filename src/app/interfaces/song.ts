@@ -1,4 +1,3 @@
-import { Album } from "./album"
 import { ExternalIds } from "./external-ids"
 import { ExternalUrls } from "./external-urls"
 import { LinkedFrom } from "./linked-from"
@@ -6,7 +5,6 @@ import { Restrictions } from "./restrictions"
 import { SimplifiedArtist } from "./simplified-artist"
 
 export interface Song {
-  album: Album
   artists: SimplifiedArtist[]
   availableMarkets: string[]
   discNumber: number
@@ -26,4 +24,5 @@ export interface Song {
   type: number
   uri: string
   isLocal: boolean
+  selected: boolean
 }

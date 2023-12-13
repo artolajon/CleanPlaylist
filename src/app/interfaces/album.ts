@@ -2,6 +2,7 @@ import { ExternalUrls } from "./external-urls"
 import { SimplifiedArtist } from "./simplified-artist"
 import { Image } from "./image"
 import { Restrictions } from "./restrictions"
+import { Song } from "./song"
 
 export interface Album {
   albumGroup: string
@@ -19,4 +20,5 @@ export interface Album {
   totalTracks: number
   type: string
   uri: string
+  songs: Song[]
 }

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Artist } from '../interfaces/artist';
 import { PlaylistRequest } from '../interfaces/playlist-request';
 import { Song } from '../interfaces/song';
+import { Album } from '../interfaces/album';
 
 
 const httpOptionsGet = {
@@ -25,8 +26,12 @@ export class SpotifyService {
     return this.http.get<Artist[]>(`${this.url}/artist?filter=${name}`,httpOptionsGet);
   }
 
-  getTopSongs(artistId: string): Observable<Song[]>{
-    return this.http.get<Song[]>(`${this.url}/artist/${artistId}/top`,httpOptionsGet);
+  getArtistAlbums(artistId: string): Observable<Album[]>{
+    return this.http.get<Album[]>(`${this.url}/artist/${artistId}/albums`,httpOptionsGet);
+  }
+
+  getAlbumSongs(albumId: string): Observable<Song[]>{
+    return this.http.get<Song[]>(`${this.url}/album/${albumId}/songs`,httpOptionsGet);
   }
 
   getLoginUrl(): Observable<string>{

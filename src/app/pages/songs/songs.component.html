@@ -1,14 +1,32 @@
 <div class="slidecontainer" class="card">
-  <label>Number of songs for each artist</label>
-  <input type="range" min="1" max="10" class="slider" id="myRange" [(ngModel)]="songNumberLimit" (change)="editLimit()">
-  {{songNumberLimit}}
   <div class="button-row">
-    <button (click)="createPlaylist()" class="principal" [disabled]="artistSongs.length<inputElements.length">
-        <span *ngIf="artistSongs.length<inputElements.length">Searching for songs...({{artistSongs.length}}/{{inputElements.length}})</span>
-        <span  *ngIf="artistSongs.length>=inputElements.length">Confirm</span>
+    <button (click)="createPlaylist()" class="principal" [disabled]="!loadCompleted">
+        <span *ngIf="!loadCompleted">Searching for songs...</span>
+        <span  *ngIf="loadCompleted">Confirm</span>
       </button>
     </div>
-</div>
+    <div *ngFor="let album of albums" class="album">
+      <div class="header">
+        <img [src]="album.images[0]?.url" class="image"/>
+        <div class="data">
+          <h3>{{album.name}}</h3>
+          <span>{{album.releaseDate | slice: 0:4}} - </span>
+          <span class="artist-names">
+            <span class="artist" *ngFor="let artist of album.artists">{{artist.name}}</span>
+          </span>
+        </div>
+      </div>
+      <div class="songs">
+        <div *ngFor="let song of album.songs" class="song">
+          <input type="checkbox" [(ngModel)]="song.selected">
+          <span class="title">{{song.name}} </span>
+          <span class="artist-names">
+            <span class="artist" *ngFor="let artist of album.artists">{{artist.name}}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 <div>
 
   <app-errors [errors]="errors" (retry)="retry()">

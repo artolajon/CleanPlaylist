@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, retry } from 'rxjs';
+import { Album } from 'src/app/interfaces/album';
 import { InputError } from 'src/app/interfaces/input-error';
 import { Song } from 'src/app/interfaces/song';
 import { SongCandidates } from 'src/app/models/song-candidates';
@@ -16,47 +17,33 @@ export class SongsComponent implements OnInit {
 
   input: string|null = null;
   inputElements: string[] = [];
-  playlist: Song[] = [];
-  artistSongs: SongCandidates[] = [];
-  songNumberLimit$ = new BehaviorSubject<number>(5);
-  songNumberLimit = 5;
+  albums: Album[] = [];
   errors: InputError[] = [];
+  loadCompleted: boolean = false;
+  alreadyAdded:Song[] = [];
 
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private router: Router) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(async params => {
-      this.input = params['artists'];
+      this.input = params['artist'];
       if (this.input){
-        this.inputElements=this.input.split(',');
-
-        for(let i = 0; i<this.inputElements.length; i++){
-          this.findSongs(this.inputElements[i]);
-          if (i % 5 == 0){
-            await new Promise(r => setTimeout(r, 2000));
-          }
-        }
+          this.findAlbums(this.input);
       }
     });
-
-    this.songNumberLimit$.subscribe(c=>{
-      setTimeout(()=>{
-        this.calculatePlaylistLength();
-      }, 100)
-
-    })
   }
 
-  findSongs(artistId: string, attemp=1){
-    this.spotifyService.getTopSongs(artistId).subscribe({
-      next: (songs: Song[]) =>{
-        let songsList = new SongCandidates(artistId, songs);
-        this.songNumberLimit$.subscribe(limit=>{
-          songsList.select(limit);
-        })
-        this.artistSongs.push(songsList);
+  findAlbums(artistId: string, attemp=1){
+    this.spotifyService.getArtistAlbums(artistId).subscribe({
+      next: async (albums: Album[]) =>{
 
+        for(let album of albums){
+          album.songs = await this.spotifyService.getAlbumSongs(album.id).toPromise();
+          this.albums.push(album);
+        }
+        this.selectSongs();
+        this.loadCompleted = true;
       },
       error: (error)=>{
         console.error(error);
@@ -64,34 +51,15 @@ export class SongsComponent implements OnInit {
           this.errors.push({input: artistId, message:error.error});
         }else{
           //retry
-          setTimeout(()=> this.findSongs(artistId, attemp+1), 3000)
+          setTimeout(()=> this.findAlbums(artistId, attemp+1), 3000)
         }
       }});
   }
 
-  editLimit(){
-    this.songNumberLimit$.next(this.songNumberLimit);
-  }
-
-  calculatePlaylistLength(){
-
-    let miliseconds=0;
-    let songsCount=0;
-    this.artistSongs.forEach(artist=>{
-      artist.selectedSongs?.forEach(song=>{
-        songsCount++;
-        miliseconds += song.durationMs;
-      })
-    })
-    let minutes = miliseconds / 1000 / 60;
-
-    console.log({songsCount, miliseconds, minutes })
-  }
-
   createPlaylist(){
     let allSelectedSongs:Song[] = [];
-    this.artistSongs.forEach(artist=>{
-      artist.selectedSongs?.forEach(song=>{
+    this.albums.forEach(albums=>{
+      albums.songs.filter(c=> c.selected).forEach(song=>{
         allSelectedSongs.push(song);
       });
     });
@@ -104,12 +72,28 @@ export class SongsComponent implements OnInit {
 
   async retry(){
     for(let i = 0; i<this.errors.length; i++){
-      this.findSongs(this.errors[i].input);
+      this.findAlbums(this.errors[i].input);
       if (i % 5 == 0){
         await new Promise(r => setTimeout(r, 2000));
       }
     }
     this.errors=[];
+  }
+
+  selectSongs(){
+
+
+    this.albums.forEach(album=>{
+      album.songs.forEach(song=>{
+        if(this.canSelect(song)){
+          this.alreadyAdded.push(song);
+          song.selected=true;
+        }
+      })
+    })
+  }
+  canSelect(song: Song): boolean {
+    return !this.alreadyAdded.some(c=> c.name==song.name);
   }
 
 }

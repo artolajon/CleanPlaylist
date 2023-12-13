@@ -3,19 +3,10 @@
 </div>
 
 <div *ngIf="input!=null">
-  <div *ngIf="notFoundArtists.length>0">
-    <h2>Artists I couldn't find</h2>
+  <div *ngIf="foundArtist">
+    <h2>Artist</h2>
     <div class="list">
-      <app-artist-card *ngFor="let artist of notFoundArtists" [artist]="artist" [showInput]="true">
-      </app-artist-card>
-    </div>
-
-  </div>
-
-  <div *ngIf="foundArtists.length>0">
-    <h2 *ngIf="notFoundArtists.length>0">Artists I found</h2>
-    <div class="list">
-      <app-artist-card *ngFor="let artist of foundArtists" [artist]="artist">
+      <app-artist-card [artist]="foundArtist" [showInput]="true">
       </app-artist-card>
     </div>
   </div>
@@ -23,9 +14,9 @@
 
 <div class="button-row">
 
-  <button (click)="searchForSongs()" class="principal" [disabled]="notFoundArtists.length + foundArtists.length + errors.length < inputElements.length">
-      <span *ngIf="notFoundArtists.length + foundArtists.length + errors.length<inputElements.length">Searching for artists...({{notFoundArtists.length + foundArtists.length + errors.length}}/{{inputElements.length}})</span>
-      <span  *ngIf="notFoundArtists.length + foundArtists.length + errors.length>=inputElements.length">Search songs</span>
+  <button (click)="searchForSongs()" class="principal" [disabled]="!foundArtist?.selected">
+      <span *ngIf="!foundArtist">Searching for artists...</span>
+      <span  *ngIf="foundArtist">Search songs</span>
     </button>
   </div>
 <app-errors [errors]="errors" (retry)="retry()">

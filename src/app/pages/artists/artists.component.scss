@@ -5,7 +5,6 @@
 .list{
   margin: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 150px);
   grid-gap: 20px;
-  justify-items: start;
+  justify-items: center;
 }

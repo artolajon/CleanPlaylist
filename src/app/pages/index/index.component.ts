@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class IndexComponent implements OnInit {
 
   artistsForm = new FormGroup({
-    'names': new FormControl("", Validators.required)
+    'name': new FormControl("", Validators.required)
   });
 
   constructor(private router: Router) { }
@@ -19,10 +19,9 @@ export class IndexComponent implements OnInit {
   }
 
   searchArtists(){
-    let input = (this.artistsForm.value.names as string).replace(/\n/g, ',');
-    let artistList = input.split(',').map(c=> c.trim()).filter(c=> c);
+    let input = (this.artistsForm.value.name as string).replace(/\n/g, ',');
 
-    this.router.navigate(['/artists'],{queryParams: {names: artistList.join()}})
+    this.router.navigate(['/artist'],{queryParams: {name: input}});
   }
 
 }

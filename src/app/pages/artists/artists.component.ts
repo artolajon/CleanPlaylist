@@ -14,8 +14,7 @@ export class ArtistsComponent implements OnInit {
 
   input: string|null = null;
   inputElements: string[] = [];
-  foundArtists: ArtistCandidate[] = [];
-  notFoundArtists: ArtistCandidate[] = [];
+  foundArtist: ArtistCandidate;
   errors: InputError[] = [];
 
 
@@ -23,18 +22,10 @@ export class ArtistsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(async params => {
-      this.input = params['names'];
+      this.input = params['name'];
       if (this.input){
-        this.inputElements=this.input.split(',');
-
-        for(let i = 0; i<this.inputElements.length; i++){
-          this.findName(this.inputElements[i]);
-          if (i % 5 == 0){
-            await new Promise(r => setTimeout(r, 2000));
-          }
-        }
+        this.findName(this.input);
       }
-
     });
   }
 
@@ -42,12 +33,7 @@ export class ArtistsComponent implements OnInit {
     this.spotifyService.getArtists(name).subscribe({
       next: (foundArtists: Artist[]) =>{
         let artist = new ArtistCandidate(name, foundArtists);
-        if (artist.selected){
-          this.foundArtists.push(artist)
-        }else{
-          this.notFoundArtists.push(artist)
-        }
-
+        this.foundArtist = artist;
       },
       error: (error)=>{
         console.error(error);
@@ -61,12 +47,7 @@ export class ArtistsComponent implements OnInit {
   }
 
   searchForSongs(){
-
-    let idList1 = this.foundArtists.filter(c=> c.selected).map(c=> c.selected?.id);
-    let idList2 = this.notFoundArtists.filter(c=> c.selected).map(c=> c.selected?.id);
-
-    let idList =  idList1.concat(idList2);
-    this.router.navigate(['/songs'],{queryParams: {artists: idList.join()}});
+    this.router.navigate(['/songs'],{queryParams: {artist: this.foundArtist.selected.id}});
   }
 
   async retry(){
