@@ -20,9 +20,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'NoRemixPlaylistGenerator'`, () => {
+  it(`should have as title 'CleanPlaylistGenerator'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('NoRemixPlaylistGenerator');
+    expect(app.title).toEqual('CleanPlaylistGenerator');
   });
 });

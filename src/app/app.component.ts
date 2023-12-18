@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'NoRemix | Full Discography Playlist Generator';
+  title = 'CleanPlaylist | Full Discography Playlist Generator';
   year = new Date().getFullYear();
 }

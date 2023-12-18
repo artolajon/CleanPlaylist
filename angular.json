@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "NoRemixPlaylistGenerator": {
+    "CleanPlaylistGenerator": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "NoRemixPlaylistGenerator:build:production"
+              "browserTarget": "CleanPlaylistGenerator:build:production"
             },
             "development": {
-              "browserTarget": "NoRemixPlaylistGenerator:build:development"
+              "browserTarget": "CleanPlaylistGenerator:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "NoRemixPlaylistGenerator:build"
+            "browserTarget": "CleanPlaylistGenerator:build"
           }
         },
         "test": {

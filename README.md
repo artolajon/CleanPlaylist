@@ -1,4 +1,4 @@
-# No Remix - Full Discography Playlist Generator
+# Clean Playlist - Full Discography Playlist Generator
 This web app generates a playlist featuring songs exclusively from artists, excluding remixes, live performances, and alternate versions. It is designed to help users who just want to hear the official songs.
 
 ## Features
@@ -6,7 +6,7 @@ Enter the name of artist/band/group to generate a playlist of their songs
 Connect the playlist with Spotify
 
 ## How to use
-Go to the website https://NoRemix.jonartola.com/
+Go to the website https://CleanPlaylist.jonartola.com/
 Enter the name of artist/band/group in the search bar and click "Search"
 Check the artist that has been found
 Click "Search songs" to start getting their songs
