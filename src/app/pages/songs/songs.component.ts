@@ -48,7 +48,7 @@ export class SongsComponent implements OnInit {
       error: (error)=>{
         console.error(error);
         if (attemp>5){
-          this.errors.push({input: artistId, message:error.error});
+          this.errors.push({input: artistId, message:error.message});
         }else{
           //retry
           setTimeout(()=> this.findAlbums(artistId, attemp+1), 3000)

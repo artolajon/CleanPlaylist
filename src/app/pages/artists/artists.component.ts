@@ -38,7 +38,7 @@ export class ArtistsComponent implements OnInit {
       error: (error)=>{
         console.error(error);
         if (attemp>5){
-          this.errors.push({input: name, message:error.error});
+          this.errors.push({input: name, message:error.message});
         }else{
           //retry
           setTimeout(()=> this.findName(name, attemp+1), 3000)
