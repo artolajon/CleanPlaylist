@@ -35,7 +35,7 @@ export class SongsComponent implements OnInit {
       }
     });
 
-    this.blacklistService.get().subscribe(response =>{this.blacklist = response; });
+    this.blacklistService.get().subscribe(response =>{this.blacklist = response; console.log(this.blacklist) });
   }
 
   findAlbums(artistId: string, attemp=1){

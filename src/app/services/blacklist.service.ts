@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +22,8 @@ export class BlacklistService {
     let blacklist = localStorage.getItem('custom-blacklist');
     if (blacklist)
     {
-      let list = JSON.parse(blacklist);
-      return list.filter(c=> c && c!='')
+      let list:string[] = JSON.parse(blacklist);
+      return of(list.filter(c=> c && c!=''));
     }
     return null;
   }
