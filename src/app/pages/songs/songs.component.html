@@ -18,11 +18,12 @@
       </div>
       <div class="songs">
         <div *ngFor="let song of album.songs" class="song">
-          <input type="checkbox" [(ngModel)]="song.selected">
-          <span class="title">{{song.name}} </span>
-          <span class="artist-names">
-            <span class="artist" *ngFor="let artist of album.artists">{{artist.name}}</span>
+          <input type="checkbox" [id]="'select-'+song.id" [(ngModel)]="song.selected">
+          <span class="title" [attr.for]="'select-'+song.id">{{song.name}} </span>
+          <span class="artist-names" *ngIf="song.featArtists.length>0">
+            feat. <span class="artist" *ngFor="let artist of song.featArtists">{{artist.name}}</span>
           </span>
+          <span class="reason" *ngIf="song.reasonForNotSelect"> - {{song.reasonForNotSelect}}</span>
         </div>
       </div>
     </div>

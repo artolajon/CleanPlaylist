@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, retry } from 'rxjs';
+import { BehaviorSubject, Observable, retry } from 'rxjs';
 import { Album } from 'src/app/interfaces/album';
 import { InputError } from 'src/app/interfaces/input-error';
 import { Song } from 'src/app/interfaces/song';
 import { SongCandidates } from 'src/app/models/song-candidates';
+import { BlacklistService } from 'src/app/services/blacklist.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -21,9 +22,10 @@ export class SongsComponent implements OnInit {
   errors: InputError[] = [];
   loadCompleted: boolean = false;
   alreadyAdded:Song[] = [];
+  blacklist: string[];
 
 
-  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private router: Router, private blacklistService: BlacklistService ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(async params => {
@@ -32,6 +34,8 @@ export class SongsComponent implements OnInit {
           this.findAlbums(this.input);
       }
     });
+
+    this.blacklistService.get().subscribe(response =>{this.blacklist = response; });
   }
 
   findAlbums(artistId: string, attemp=1){
@@ -39,7 +43,10 @@ export class SongsComponent implements OnInit {
       next: async (albums: Album[]) =>{
 
         for(let album of albums){
-          album.songs = await this.spotifyService.getAlbumSongs(album.id).toPromise();
+          album.songs = (await this.spotifyService.getAlbumSongs(album.id).toPromise()).map((song: Song)=>{
+            song.featArtists = song.artists.filter(songArtist=> !album.artists.some(albumArtist=>songArtist.id == albumArtist.id));
+            return song;
+          });
           this.albums.push(album);
         }
         this.selectSongs();
@@ -85,15 +92,28 @@ export class SongsComponent implements OnInit {
 
     this.albums.forEach(album=>{
       album.songs.forEach(song=>{
-        if(this.canSelect(song)){
+
+        let reason = this.getReasonToNotSelect(song);
+
+        if(reason == null){
           this.alreadyAdded.push(song);
           song.selected=true;
+        }else{
+          song.reasonForNotSelect = reason;
         }
       })
     })
   }
-  canSelect(song: Song): boolean {
-    return !this.alreadyAdded.some(c=> c.name==song.name);
+  getReasonToNotSelect(song: Song): string | null {
+    if (this.alreadyAdded.some(c=> c.name==song.name)){
+      return "Already added";
+    }
+
+    if (this.blacklist.some(c=> song.name.toLowerCase().includes(c))){
+      let word = this.blacklist.find(c=> song.name.toLowerCase().includes(c));
+      return `Includes word '${word}'`;
+    }
+    return null;
   }
 
 }

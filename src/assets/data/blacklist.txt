@@ -1,3 +1,9 @@
-aaaa
-bbbb
-cccc
+live
+concierto
+remix
+mix
+zuzenean
+version
+intro
+outro
+interlude

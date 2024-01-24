@@ -25,4 +25,6 @@ export interface Song {
   uri: string
   isLocal: boolean
   selected: boolean
+  reasonForNotSelect: string
+  featArtists: SimplifiedArtist[]
 }
