@@ -39,6 +39,9 @@ export class SpotifyService {
 
   getLoginUrl(): Observable<string>{
     return this.http.get(`${this.url}/session`, {
+      headers:  new HttpHeaders({
+        'x-origin': 'CleanPlaylist'
+      }),
      responseType: 'text'
     } );
   }
