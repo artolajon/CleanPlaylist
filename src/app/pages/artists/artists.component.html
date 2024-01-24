@@ -2,24 +2,6 @@
   No input
 </div>
 
-<div *ngIf="input!=null">
-  <div *ngIf="foundArtist">
-    <h2>Artist</h2>
-    <div class="list">
-      <app-artist-card [artist]="foundArtist" [showInput]="true">
-      </app-artist-card>
-    </div>
-  </div>
-</div>
 
-<div class="button-row">
-
-  <button (click)="searchForSongs()" class="principal" [disabled]="!foundArtist?.selected">
-      <span *ngIf="!foundArtist">Searching for artists...</span>
-      <span  *ngIf="foundArtist">Search songs</span>
-    </button>
-  </div>
-<app-errors [errors]="errors" (retry)="retry()">
-</app-errors>
 
 

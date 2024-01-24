@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ArtistCandidate } from 'src/app/models/artist-candidate';
+import { Artist } from 'src/app/interfaces/artist';
 
 @Component({
   selector: 'app-artist-card',
@@ -9,9 +9,10 @@ import { ArtistCandidate } from 'src/app/models/artist-candidate';
 export class ArtistCardComponent implements OnInit {
 
   @Input()
-  artist!: ArtistCandidate;
+  artist!: Artist;
   @Input()
   showInput: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {

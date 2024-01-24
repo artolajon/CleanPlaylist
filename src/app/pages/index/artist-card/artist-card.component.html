@@ -1,0 +1,5 @@
+<div class="card">
+  <img *ngIf="artist && artist.images[0]" [src]="artist.images[0].url"/>
+  <i *ngIf="showInput" >{{artist.name}}</i>
+
+</div>

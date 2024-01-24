@@ -1,8 +1,0 @@
-<div class="card">
-  <img *ngIf="artist.selected && artist.selected.images[0]" [src]="artist.selected.images[0].url"/>
-  <i *ngIf="showInput" >'{{artist.originalInput}}'</i>
-  <select [(ngModel)]="artist.selected">
-    <option *ngFor="let alt of artist.alternatives" [ngValue]="alt">{{alt.name}}</option>
-  </select>
-
-</div>

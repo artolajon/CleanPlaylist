@@ -1,11 +1,23 @@
 <form [formGroup]="artistsForm" (submit)="searchArtists()">
   <div class="card">
     <label>Artist name</label>
-    <input formControlName="name" placeholder="Paste (or write) artist name here"/>
+    <input formControlName="name" placeholder="Paste (or write) artist name here" [disabled]="searching" />
     <div class="button-row">
-      <button [disabled]="!artistsForm.valid" class="principal">Search for artists</button>
+      <button [disabled]="!artistsForm.valid || searching" class="principal">
+        {{searching? 'Searching for artists...':'Search for artists'}}</button>
     </div>
   </div>
 
 
 </form>
+
+<div *ngIf="foundArtists && foundArtists.length>0" >
+  <h2>Artist</h2>
+  <div class="list">
+    <app-artist-card *ngFor="let artist of foundArtists" [artist]="artist" [showInput]="true" (click)="searchForSongs(artist.id)" class="clickable">
+    </app-artist-card>
+  </div>
+</div>
+
+<app-errors [errors]="errors" (retry)="retry()">
+</app-errors>

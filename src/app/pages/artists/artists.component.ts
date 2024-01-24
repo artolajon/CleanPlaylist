@@ -18,46 +18,12 @@ export class ArtistsComponent implements OnInit {
   errors: InputError[] = [];
 
 
-  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private router: Router ) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(async params => {
-      this.input = params['name'];
-      if (this.input){
-        this.findName(this.input);
-      }
-    });
+
   }
 
-  findName(name: string, attemp = 1){
-    this.spotifyService.getArtists(name).subscribe({
-      next: (foundArtists: Artist[]) =>{
-        let artist = new ArtistCandidate(name, foundArtists);
-        this.foundArtist = artist;
-      },
-      error: (error)=>{
-        console.error(error);
-        if (attemp>5){
-          this.errors.push({input: name, message:error.message});
-        }else{
-          //retry
-          setTimeout(()=> this.findName(name, attemp+1), 3000)
-        }
-      }});
-  }
 
-  searchForSongs(){
-    this.router.navigate(['/songs'],{queryParams: {artist: this.foundArtist.selected.id}});
-  }
-
-  async retry(){
-    for(let i = 0; i<this.errors.length; i++){
-      this.findName(this.errors[i].input);
-      if (i % 5 == 0){
-        await new Promise(r => setTimeout(r, 2000));
-      }
-    }
-    this.errors=[];
-  }
 
 }

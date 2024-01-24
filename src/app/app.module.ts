@@ -9,7 +9,7 @@ import { ArtistsComponent } from './pages/artists/artists.component';
 import { IndexComponent } from './pages/index/index.component';
 import { SongsComponent } from './pages/songs/songs.component';
 import { PlaylistComponent } from './pages/playlist/playlist.component';
-import { ArtistCardComponent } from './pages/artists/artist-card/artist-card.component';
+import { ArtistCardComponent } from './pages/index/artist-card/artist-card.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { AboutComponent } from './pages/about/about.component';
