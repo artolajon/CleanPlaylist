@@ -7,3 +7,8 @@ version
 intro
 outro
 interlude
+instrumental
+acustico
+acoustic
+extended
+edit
