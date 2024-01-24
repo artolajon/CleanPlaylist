@@ -47,7 +47,8 @@ export class SpotifyService {
     return this.http.post(`${this.url}/playlist`, JSON.stringify(playlist), {
       headers:  new HttpHeaders({
         'Authorization': code,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-origin': 'CleanPlaylist'
       }),
       responseType: 'text'
     } );
