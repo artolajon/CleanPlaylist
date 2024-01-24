@@ -29,7 +29,7 @@ export class BlacklistService {
   }
 
   getDefaultBlacklist(): Observable<string[]>{
-    return this.http.get('assets/data/blacklist.txt',{responseType: 'text'}).pipe(map((response:string)=> response.split('\r\n').filter(c=> c && c!='')));
+    return this.http.get('assets/data/blacklist.txt',{responseType: 'text'}).pipe(map((response:string)=> response.replace('\r','').split('\n').filter(c=> c && c!='')));
   }
 
   updateBlacklist(blacklist: string[]){
