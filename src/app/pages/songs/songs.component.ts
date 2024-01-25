@@ -113,6 +113,10 @@ export class SongsComponent implements OnInit {
       let word = this.blacklist.find(c=> song.name.toLowerCase().includes(c));
       return `Includes word '${word}'`;
     }
+
+    if (song.artists.some(c=> c.id == this.input)){
+      return `Not their song`;
+    }
     return null;
   }
 
