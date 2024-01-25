@@ -114,7 +114,7 @@ export class SongsComponent implements OnInit {
       return `Includes word '${word}'`;
     }
 
-    if (song.artists.some(c=> c.id == this.input)){
+    if (!song.artists.some(c=> c.id == this.input)){
       return `Not their song`;
     }
     return null;
