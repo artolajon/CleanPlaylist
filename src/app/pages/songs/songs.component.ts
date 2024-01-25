@@ -23,11 +23,13 @@ export class SongsComponent implements OnInit {
   loadCompleted: boolean = false;
   alreadyAdded:Song[] = [];
   blacklist: string[];
+  counter: number = 0;
 
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private router: Router, private blacklistService: BlacklistService ) { }
 
   ngOnInit(): void {
+    this.counter=0;
     this.route.queryParams.subscribe(async params => {
       this.input = params['artist'];
       if (this.input){
@@ -48,6 +50,7 @@ export class SongsComponent implements OnInit {
             return song;
           });
           this.albums.push(album);
+          this.counter += album.songs.length;
         }
         this.selectSongs();
         this.loadCompleted = true;

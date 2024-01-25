@@ -1,7 +1,7 @@
 <div class="slidecontainer" class="card">
   <div class="button-row">
     <button (click)="createPlaylist()" class="principal" [disabled]="!loadCompleted">
-        <span *ngIf="!loadCompleted">Searching for songs...</span>
+        <span *ngIf="!loadCompleted">Searching for songs... {{counter}}</span>
         <span  *ngIf="loadCompleted">Confirm</span>
       </button>
     </div>
