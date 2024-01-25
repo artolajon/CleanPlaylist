@@ -23,7 +23,11 @@ export class SpotifyService {
   constructor(private http: HttpClient) { }
 
   getStatus(){
-    return this.http.get<Artist[]>(`${this.url}/status`,httpOptionsGet);
+    return this.http.get<Artist[]>(`${this.url}/status`,{
+      headers:  new HttpHeaders({
+        'x-origin': 'CleanPlaylist'
+      })
+    });
   }
   getArtists(name: string): Observable<Artist[]>{
     return this.http.get<Artist[]>(`${this.url}/artist?filter=${name}`,httpOptionsGet);
