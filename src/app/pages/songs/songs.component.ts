@@ -96,6 +96,7 @@ export class SongsComponent implements OnInit {
       case 'SOME': {
         album.songs.forEach(song=> {
           song.selected=true;
+          song.reasonForNotSelect=null;
           this.alreadyAdded.push(song);
         });
 
