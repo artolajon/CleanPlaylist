@@ -13,3 +13,6 @@ acoustic
 extended
 edit
 ver.
+sped
+cappella
+slowed
