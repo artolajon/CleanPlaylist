@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ArtistsComponent } from './pages/artists/artists.component';
 import { IndexComponent } from './pages/index/index.component';
 import { SongsComponent } from './pages/songs/songs.component';
 import { PlaylistComponent } from './pages/playlist/playlist.component';
@@ -20,7 +19,6 @@ import { ErrorsComponent } from './components/errors/errors.component';
   declarations: [
     AppComponent,
     IndexComponent,
-    ArtistsComponent,
     SongsComponent,
     PlaylistComponent,
     ArtistCardComponent,

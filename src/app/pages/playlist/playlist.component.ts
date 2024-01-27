@@ -14,7 +14,7 @@ export class PlaylistComponent implements OnInit {
 
   playlistForm = new FormGroup({
     'name': new FormControl("", [Validators.required, Validators.maxLength(100)]),
-    'description': new FormControl("", [Validators.maxLength(260)]),
+    'description': new FormControl("", [Validators.maxLength(255)]),
   });
   songs: Song[] = [];
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private router: Router) { }
@@ -24,10 +24,17 @@ export class PlaylistComponent implements OnInit {
     if (songs){
       this.songs = JSON.parse(songs);
     }
-    let data = sessionStorage.getItem('data');
-    if (data){
-      this.playlistForm.patchValue(JSON.parse(data));
+    let artistName = sessionStorage.getItem('artist_name');
+    if (artistName){
+      this.playlistForm.controls["name"].setValue(artistName);
     }
+    else{
+      let data = sessionStorage.getItem('data');
+      if (data){
+        this.playlistForm.patchValue(JSON.parse(data));
+      }
+    }
+
 
     this.route.queryParams.subscribe(params => {
       let spotifyCode = params['code'];
@@ -50,6 +57,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   connectToSpotify(){
+    sessionStorage.removeItem('artist_name');
     sessionStorage.setItem('data', JSON.stringify(this.playlistForm.value));
 
     this.spotifyService.getLoginUrl().subscribe(url=>{

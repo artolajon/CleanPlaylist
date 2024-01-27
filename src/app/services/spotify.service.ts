@@ -33,6 +33,10 @@ export class SpotifyService {
     return this.http.get<Artist[]>(`${this.url}/artist?filter=${name}`,httpOptionsGet);
   }
 
+  getArtist(id: string): Observable<Artist>{
+    return this.http.get<Artist>(`${this.url}/artist/${id}`,httpOptionsGet);
+  }
+
   getArtistAlbums(artistId: string): Observable<Album[]>{
     return this.http.get<Album[]>(`${this.url}/artist/${artistId}/albums`,httpOptionsGet);
   }

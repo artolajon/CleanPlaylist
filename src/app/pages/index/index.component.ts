@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Artist } from 'src/app/interfaces/artist';
 import { InputError } from 'src/app/interfaces/input-error';
-import { ArtistCandidate } from 'src/app/models/artist-candidate';
 import { SpotifyService } from 'src/app/services/spotify.service';
 
 @Component({

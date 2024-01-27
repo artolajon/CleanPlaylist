@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable, retry } from 'rxjs';
 import { Album } from 'src/app/interfaces/album';
+import { Artist } from 'src/app/interfaces/artist';
 import { InputError } from 'src/app/interfaces/input-error';
 import { Song } from 'src/app/interfaces/song';
-import { SongCandidates } from 'src/app/models/song-candidates';
 import { BlacklistService } from 'src/app/services/blacklist.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
-import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-songs',
@@ -24,6 +22,7 @@ export class SongsComponent implements OnInit {
   alreadyAdded:Song[] = [];
   blacklist: string[];
   counter: number = 0;
+  artist: Artist;
 
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private router: Router, private blacklistService: BlacklistService ) { }
@@ -33,11 +32,18 @@ export class SongsComponent implements OnInit {
     this.route.queryParams.subscribe(async params => {
       this.input = params['artist'];
       if (this.input){
+          this.getArtist(this.input);
           this.findAlbums(this.input);
       }
     });
 
     this.blacklistService.get().subscribe(response =>{this.blacklist = response; console.log(this.blacklist) });
+  }
+
+  getArtist(artistId: string) {
+     this.spotifyService.getArtist(artistId).subscribe(response => {
+      this.artist = response;
+     });
   }
 
   findAlbums(artistId: string, attemp=1){
@@ -75,6 +81,7 @@ export class SongsComponent implements OnInit {
     });
 
     sessionStorage.setItem('songs', JSON.stringify(allSelectedSongs));
+    sessionStorage.setItem('artist_name',  this.artist.name);
 
     this.router.navigate(['/playlist']);
 

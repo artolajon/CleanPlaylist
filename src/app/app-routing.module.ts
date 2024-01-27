@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ArtistsComponent } from './pages/artists/artists.component';
 import { IndexComponent } from './pages/index/index.component';
 import { SongsComponent } from './pages/songs/songs.component';
 import { PlaylistComponent } from './pages/playlist/playlist.component';
@@ -12,7 +11,6 @@ import { ContactComponent } from './pages/contact/contact.component';
 const routes: Routes = [
   {path:'', component: LandingComponent},
   {path:'form', component: IndexComponent},
-  {path:'artist', component: ArtistsComponent},
   {path:'songs', component: SongsComponent},
   {path:'playlist', component: PlaylistComponent},
   {path:'about', component: AboutComponent},
