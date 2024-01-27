@@ -21,4 +21,5 @@ export interface Album {
   type: string
   uri: string
   songs: Song[]
+  selected: 'ALL'|'SOME'|'NONE';
 }

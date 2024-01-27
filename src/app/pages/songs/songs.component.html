@@ -7,9 +7,12 @@
     </div>
     <div *ngFor="let album of albums" class="album">
       <div class="header">
-        <img [src]="album.images[0]?.url" class="image"/>
+        <img [src]="album.images[0]?.url" class="image" [alt]="album.name + ' cover'"/>
         <div class="data">
-          <h3>{{album.name}}</h3>
+          <h3>
+            <input type="checkbox" [indeterminate]="album.selected === 'SOME'" [ngModel]="album.selected === 'ALL'" (ngModelChange)="checkAlbum(album)">
+             {{album.name}}
+          </h3>
           <span>{{album.releaseDate | slice: 0:4}} - </span>
           <span class="artist-names">
             <span class="artist" *ngFor="let artist of album.artists">{{artist.name}}</span>

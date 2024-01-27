@@ -57,8 +57,18 @@ export class SongsComponent implements OnInit {
           });
           this.albums.push(album);
           this.counter += album.songs.length;
+          this.selectSongs(album);
+
+          if (album.songs.some(c=> c.selected) && album.songs.some(c=> !c.selected)){
+            album.selected = 'SOME';
+          }
+          else if (album.songs.some(c=> c.selected)){
+            album.selected = 'ALL';
+          }
+          else{
+            album.selected = 'NONE';
+          }
         }
-        this.selectSongs();
         this.loadCompleted = true;
       },
       error: (error)=>{
@@ -70,6 +80,34 @@ export class SongsComponent implements OnInit {
           setTimeout(()=> this.findAlbums(artistId, attemp+1), 3000)
         }
       }});
+  }
+
+  checkAlbum(album: Album){
+    switch (album.selected) {
+      case 'ALL': {
+
+        album.songs.forEach(song=> {
+          song.selected=false;
+          this.alreadyAdded = this.alreadyAdded.filter(c=> c.id!=song.id);
+        });
+        album.selected = 'NONE';
+        break;
+      }
+      case 'SOME': {
+        album.songs.forEach(song=> {
+          song.selected=true;
+          this.alreadyAdded.push(song);
+        });
+
+        album.selected = 'ALL';
+        break;
+      }
+      case 'NONE': {
+        this.selectSongs(album);
+        album.selected = 'SOME';
+        break;
+      }
+    }
   }
 
   createPlaylist(){
@@ -97,21 +135,16 @@ export class SongsComponent implements OnInit {
     this.errors=[];
   }
 
-  selectSongs(){
+  selectSongs(album: Album){
+    album.songs.forEach(song=>{
 
+      let reason = this.getReasonToNotSelect(song);
 
-    this.albums.forEach(album=>{
-      album.songs.forEach(song=>{
-
-        let reason = this.getReasonToNotSelect(song);
-
-        if(reason == null){
-          this.alreadyAdded.push(song);
-          song.selected=true;
-        }else{
-          song.reasonForNotSelect = reason;
-        }
-      })
+      song.reasonForNotSelect = reason;
+      if(reason == null){
+        this.alreadyAdded.push(song);
+        song.selected=true;
+      }
     })
   }
   getReasonToNotSelect(song: Song): string | null {
