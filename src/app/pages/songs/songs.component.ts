@@ -149,6 +149,10 @@ export class SongsComponent implements OnInit {
     })
   }
   getReasonToNotSelect(song: Song): string | null {
+    if (!song.artists.some(c=> c.id == this.input)){
+      return `Not their song`;
+    }
+
     if (this.alreadyAdded.some(c=> c.name==song.name)){
       return "Already added";
     }
@@ -156,10 +160,6 @@ export class SongsComponent implements OnInit {
     if (this.blacklist.some(c=> song.name.toLowerCase().includes(c))){
       let word = this.blacklist.find(c=> song.name.toLowerCase().includes(c));
       return `Includes word '${word}'`;
-    }
-
-    if (!song.artists.some(c=> c.id == this.input)){
-      return `Not their song`;
     }
     return null;
   }
