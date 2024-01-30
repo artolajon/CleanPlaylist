@@ -16,6 +16,7 @@ export class PlaylistComponent implements OnInit {
     'name': new FormControl("", [Validators.required, Validators.maxLength(100)]),
     'description': new FormControl("", [Validators.maxLength(255)]),
   });
+  playlistUrl: string;
   songs: Song[] = [];
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private router: Router) { }
 
@@ -52,6 +53,7 @@ export class PlaylistComponent implements OnInit {
     }
 
     this.spotifyService.createPlaylist(code, playlistData).subscribe(url=>{
+      this.playlistUrl=url;
       window.open(url, "_blank");
     })
   }
@@ -62,11 +64,13 @@ export class PlaylistComponent implements OnInit {
 
     this.spotifyService.getLoginUrl().subscribe(url=>{
       console.log(url);
+
       window.location.href = url;
     });
   }
 
   reset(){
+    this.playlistUrl=null;
     this.router.navigate(['/form']);
   }
 
