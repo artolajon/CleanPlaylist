@@ -18,6 +18,7 @@ export class PlaylistComponent implements OnInit {
   });
   playlistUrl: string;
   songs: Song[] = [];
+  loading: boolean;
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private router: Router) { }
 
   ngOnInit(): void {
@@ -46,6 +47,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   savePlaylistOnSpotify(code: string){
+    this.loading=true;
     let playlistData:PlaylistRequest = {
       description: this.playlistForm.value.description as string,
       name: this.playlistForm.value.name as string,
@@ -53,6 +55,7 @@ export class PlaylistComponent implements OnInit {
     }
 
     this.spotifyService.createPlaylist(code, playlistData).subscribe(url=>{
+      this.loading=false;
       this.playlistUrl=url;
       window.open(url, "_blank");
     })
@@ -61,9 +64,10 @@ export class PlaylistComponent implements OnInit {
   connectToSpotify(){
     sessionStorage.removeItem('artist_name');
     sessionStorage.setItem('data', JSON.stringify(this.playlistForm.value));
-
+    this.loading=true;
     this.spotifyService.getLoginUrl().subscribe(url=>{
       console.log(url);
+      this.loading=false;
 
       window.location.href = url;
     });
@@ -71,6 +75,7 @@ export class PlaylistComponent implements OnInit {
 
   reset(){
     this.playlistUrl=null;
+    this.loading=false;
     this.router.navigate(['/form']);
   }
 

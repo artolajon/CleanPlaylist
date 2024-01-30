@@ -4,7 +4,7 @@
     <textarea type="text" formControlName="description" placeholder="Description" [rows]="4"></textarea>
     <div class="button-row">
       <button type="button" (click)="reset()" class="secondary">Reset</button>
-      <button *ngIf="!playlistUrl" [disabled]="!playlistForm.valid" class="principal spotify">OPEN SPOTIFY</button>
+      <button *ngIf="!playlistUrl" [disabled]="!playlistForm.valid || loading" class="principal spotify">OPEN SPOTIFY</button>
       <a *ngIf="playlistUrl" href="{{playlistUrl}}" target="_blank" id="spotify-link"><button type="button" class="principal spotify">OPEN SPOTIFY</button></a>
     </div>
   </div>
