@@ -66,7 +66,6 @@ export class PlaylistComponent implements OnInit {
     sessionStorage.setItem('data', JSON.stringify(this.playlistForm.value));
     this.loading=true;
     this.spotifyService.getLoginUrl().subscribe(url=>{
-      console.log(url);
       this.loading=false;
 
       window.location.href = url;
