@@ -15,4 +15,6 @@ edit
 ver.
 sped
 cappella
+acapella
 slowed
+reanimation

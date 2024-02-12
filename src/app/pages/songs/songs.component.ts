@@ -37,7 +37,7 @@ export class SongsComponent implements OnInit {
       }
     });
 
-    this.blacklistService.get().subscribe(response =>{this.blacklist = response; console.log(this.blacklist) });
+    this.blacklistService.get().subscribe(response =>this.blacklist = response);
   }
 
   getArtist(artistId: string) {

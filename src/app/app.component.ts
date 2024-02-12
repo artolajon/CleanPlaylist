@@ -11,8 +11,6 @@ export class AppComponent {
   year = new Date().getFullYear();
 
   constructor(private spotifyService: SpotifyService){
-    spotifyService.getStatus().subscribe(result =>{
-      console.log("Server active");
-    });
+    spotifyService.getStatus().subscribe();
   }
 }
