@@ -18,3 +18,6 @@ cappella
 acapella
 slowed
 reanimation
+gira
+directo
+acústico
