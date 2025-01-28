@@ -1,9 +1,18 @@
 <div class="slidecontainer" class="card">
   <div class="button-row">
+    <button (click)="toggleFilters()" class="secondary">Filters</button>
     <button (click)="createPlaylist()" class="principal" [disabled]="!loadCompleted">
         <span *ngIf="!loadCompleted">Searching for songs... {{counter}}</span>
         <span  *ngIf="loadCompleted">Confirm</span>
       </button>
+    </div>
+    <div class="filter-container">
+      <div *ngIf="filtersVisible" class="filters">
+        <div *ngFor="let filter of filters" class="filter">
+          <input type="checkbox" [id]="'filter-'+filter.id" [(ngModel)]="filter.selected" (change)="restartSelection()">
+          <label [attr.for]="'filter-'+filter.id">{{filter.description}}</label>
+        </div>
+      </div>
     </div>
     <div *ngFor="let album of albums" class="album">
       <div class="header">
@@ -30,6 +39,9 @@
         </div>
       </div>
     </div>
+    <button (click)="createPlaylist()" class="principal" *ngIf="loadCompleted">
+      <span>Confirm</span>
+    </button>
   </div>
 <div>
 

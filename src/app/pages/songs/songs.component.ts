@@ -23,7 +23,11 @@ export class SongsComponent implements OnInit {
   blacklist: string[];
   counter: number = 0;
   artist: Artist;
-
+  filtersVisible: boolean = false;
+  filters: {id:string, selected:boolean, description: string}[] = [
+    {id: "NOFEAT", selected: false, description: "Exclude features"},
+    {id: "NOALBUMS", selected: false, description: "Only singles"}
+  ];
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private router: Router, private blacklistService: BlacklistService ) { }
 
@@ -49,26 +53,7 @@ export class SongsComponent implements OnInit {
   findAlbums(artistId: string, attemp=1){
     this.spotifyService.getArtistAlbums(artistId).subscribe({
       next: async (albums: Album[]) =>{
-
-        for(let album of albums){
-          album.songs = (await this.spotifyService.getAlbumSongs(album.id).toPromise()).map((song: Song)=>{
-            song.featArtists = song.artists.filter(songArtist=> !album.artists.some(albumArtist=>songArtist.id == albumArtist.id));
-            return song;
-          });
-          this.albums.push(album);
-          this.counter += album.songs.length;
-          this.selectSongs(album);
-
-          if (album.songs.some(c=> c.selected) && album.songs.some(c=> !c.selected)){
-            album.selected = 'SOME';
-          }
-          else if (album.songs.some(c=> c.selected)){
-            album.selected = 'ALL';
-          }
-          else{
-            album.selected = 'NONE';
-          }
-        }
+        await this.startSelection(albums);
         this.loadCompleted = true;
       },
       error: (error)=>{
@@ -80,6 +65,45 @@ export class SongsComponent implements OnInit {
           setTimeout(()=> this.findAlbums(artistId, attemp+1), 3000)
         }
       }});
+  }
+
+  async startSelection(albums: Album[]) {
+    for(let album of albums){
+      album.songs = (await this.spotifyService.getAlbumSongs(album.id).toPromise()).map((song: Song)=>{
+        song.featArtists = song.artists.filter(songArtist=> !album.artists.some(albumArtist=>songArtist.id == albumArtist.id));
+        return song;
+      });
+      this.albums.push(album);
+      this.counter += album.songs.length;
+      this.selectSongs(album);
+
+      if (album.songs.some(c=> c.selected) && album.songs.some(c=> !c.selected)){
+        album.selected = 'SOME';
+      }
+      else if (album.songs.some(c=> c.selected)){
+        album.selected = 'ALL';
+      }
+      else{
+        album.selected = 'NONE';
+      }
+    }
+  }
+
+  async restartSelection() {
+    this.resetSelection();
+    for(let album of this.albums){
+      this.selectSongs(album);
+
+      if (album.songs.some(c=> c.selected) && album.songs.some(c=> !c.selected)){
+        album.selected = 'SOME';
+      }
+      else if (album.songs.some(c=> c.selected)){
+        album.selected = 'ALL';
+      }
+      else{
+        album.selected = 'NONE';
+      }
+    }
   }
 
   checkAlbum(album: Album){
@@ -137,10 +161,15 @@ export class SongsComponent implements OnInit {
   }
 
   selectSongs(album: Album){
+    if (this.filters.some(c=> c.selected && c.id == 'NOALBUMS')){
+      if (album.albumType != 'single'){
+        album.songs.forEach(song=> song.reasonForNotSelect = 'Not a single');
+        return;
+      }
+    }
+
     album.songs.forEach(song=>{
-
       let reason = this.getReasonToNotSelect(song);
-
       song.reasonForNotSelect = reason;
       if(reason == null){
         this.alreadyAdded.push(song);
@@ -161,7 +190,30 @@ export class SongsComponent implements OnInit {
       let word = this.blacklist.find(c=> song.name.toLowerCase().includes(c));
       return `Includes word '${word}'`;
     }
+
+    if (this.filters.some(c=> c.selected && c.id == 'NOFEAT')){
+      if (song.artists[0].id != this.input){
+        return `Is a feature`;
+      }
+    }
+
+
     return null;
   }
 
+  resetSelection(){
+    this.albums.forEach(album=>{
+      album.songs.forEach(song=>{
+        song.selected=false;
+        song.reasonForNotSelect=null;
+      });
+      album.selected = 'NONE';
+    });
+    this.alreadyAdded = [];
+  }
+
+
+  toggleFilters(){
+    this.filtersVisible = !this.filtersVisible;
+  }
 }
