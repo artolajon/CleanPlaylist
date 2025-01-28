@@ -2,7 +2,7 @@
   <div class="button-row">
     <button (click)="toggleFilters()" class="secondary">Filters</button>
     <button (click)="createPlaylist()" class="principal" [disabled]="!loadCompleted">
-        <span *ngIf="!loadCompleted">Searching for songs... {{counter}}</span>
+        <span *ngIf="!loadCompleted">Searching... {{counter}}</span>
         <span  *ngIf="loadCompleted">Confirm</span>
       </button>
     </div>
