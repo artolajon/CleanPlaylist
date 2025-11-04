@@ -26,7 +26,8 @@ export class SongsComponent implements OnInit {
   filtersVisible: boolean = false;
   sortDescending: boolean = false;
   filters: { id: string, selected: boolean, description: string }[] = [
-    { id: "NOFEAT", selected: false, description: "Only their songs" },
+    { id: "SORTDESC", selected: true, description: "Newest first" },
+    { id: "NOFEAT", selected: false, description: "Only songs that belong to them" },
     { id: "NOALBUMS", selected: false, description: "Only singles" },
     { id: "NOSHORT", selected: false, description: "Remove songs shorter than 1min" },
     { id: "BLACKLIST", selected: true, description: "Apply blacklist words" }
@@ -96,21 +97,14 @@ export class SongsComponent implements OnInit {
   }
 
   /**
-   * Toggle sort direction and re-order albums.
-   */
-  toggleSort() {
-    this.sortAlbums();
-    this.restartSelection();
-  }
-
-  /**
    * Sort albums in-place according to release date.
    */
   sortAlbums() {
     this.albums.sort((a: Album, b: Album) => {
       const ta = this.getTimeFromDate(a.releaseDate);
       const tb = this.getTimeFromDate(b.releaseDate);
-      return this.sortDescending ? tb - ta : ta - tb;
+      let sortDesc = this.filters.find(c => c.id == 'SORTDESC')?.selected;
+      return sortDesc ? tb - ta : ta - tb;
     });
   }
 
@@ -126,6 +120,7 @@ export class SongsComponent implements OnInit {
 
   async restartSelection() {
     this.resetSelection();
+    this.sortAlbums();
     for (let album of this.albums) {
       this.selectSongs(album);
 
