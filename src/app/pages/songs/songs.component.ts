@@ -33,6 +33,8 @@ export class SongsComponent implements OnInit {
     { id: "BLACKLIST", selected: true, description: "Apply blacklist words" }
   ];
 
+  filtering: boolean = false;
+
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private router: Router, private blacklistService: BlacklistService) { }
 
   ngOnInit(): void {
@@ -119,6 +121,7 @@ export class SongsComponent implements OnInit {
   }
 
   async restartSelection() {
+    this.filtering = true;
     this.resetSelection();
     this.sortAlbums();
     for (let album of this.albums) {
@@ -134,6 +137,7 @@ export class SongsComponent implements OnInit {
         album.selected = 'NONE';
       }
     }
+    setTimeout(() => { this.filtering = false; }, 500);
   }
 
   checkAlbum(album: Album) {
