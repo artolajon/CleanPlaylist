@@ -14,6 +14,7 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ErrorsComponent } from './components/errors/errors.component';
+import { BlacklistCustomizerComponent } from './components/blacklist-customizer/blacklist-customizer.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ErrorsComponent } from './components/errors/errors.component';
     AboutComponent,
     ContactComponent,
     ErrorsComponent,
+    BlacklistCustomizerComponent,
   ],
   imports: [
     BrowserModule,

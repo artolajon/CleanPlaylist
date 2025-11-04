@@ -7,15 +7,17 @@ import { LandingComponent } from './pages/landing/landing.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { BlacklistCustomizerComponent } from './components/blacklist-customizer/blacklist-customizer.component';
 
 const routes: Routes = [
-  {path:'', component: LandingComponent},
-  {path:'form', component: IndexComponent},
-  {path:'songs', component: SongsComponent},
-  {path:'playlist', component: PlaylistComponent},
-  {path:'about', component: AboutComponent},
-  {path:'privacy', component: PrivacyComponent},
-  {path:'contact', component: ContactComponent}
+  { path: '', component: LandingComponent },
+  { path: 'form', component: IndexComponent },
+  { path: 'songs', component: SongsComponent },
+  { path: 'playlist', component: PlaylistComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'privacy', component: PrivacyComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'blacklist', component: BlacklistCustomizerComponent }
 ];
 
 @NgModule({
