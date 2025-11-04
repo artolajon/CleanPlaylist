@@ -1,16 +1,20 @@
-<div class="blacklist-container">
+<div class="blacklist-container card">
   <h2>Customize Blacklist</h2>
   <form (submit)="addItem(); $event.preventDefault();">
     <input [(ngModel)]="newItem" name="blacklistItem" placeholder="Add item to blacklist" required />
-    <button type="submit">Add</button>
+    <button type="submit" class="secondary">Add</button>
   </form>
   <ul>
     <li *ngFor="let item of blacklist; let i = index">
       {{ item }}
-      <button (click)="removeItem(i)">X</button>
+      <button (click)="removeItem(i)" class="delete">X</button>
     </li>
   </ul>
-  <button (click)="saveBlacklist()">Save</button>
-  <button *ngIf="isCustom" (click)="resetBlacklist()" style="margin-left: 1rem; background: #757575;">Reset to
-    Default</button>
+  <div class="button-row">
+    <button (click)="resetBlacklist()" class="secondary">Reset</button>
+    <button (click)="saveBlacklist()" class="principal" [disabled]="isSaved">
+      <span *ngIf="!isSaved">Save</span>
+      <span *ngIf="isSaved">Saved!</span>
+    </button>
+  </div>
 </div>

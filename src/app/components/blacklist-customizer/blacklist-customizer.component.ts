@@ -9,7 +9,8 @@ import { BlacklistService } from '../../services/blacklist.service';
 export class BlacklistCustomizerComponent implements OnInit {
   blacklist: string[] = [];
   newItem: string = '';
-  isCustom: boolean = false;
+  isSaved: boolean = false;
+
 
   constructor(private blacklistService: BlacklistService) { }
 
@@ -19,6 +20,7 @@ export class BlacklistCustomizerComponent implements OnInit {
 
   addItem() {
     if (this.newItem.trim()) {
+      this.isSaved = false;
       this.blacklist.push(this.newItem.trim());
       this.newItem = '';
     }
@@ -26,23 +28,21 @@ export class BlacklistCustomizerComponent implements OnInit {
 
   removeItem(index: number) {
     this.blacklist.splice(index, 1);
+    this.isSaved = false;
   }
 
   saveBlacklist() {
     this.blacklistService.updateBlacklist(this.blacklist);
-    this.isCustom = true;
-    alert('Blacklist saved!');
+    this.isSaved = true;
   }
 
   loadBlacklist() {
     const saved = localStorage.getItem('custom-blacklist');
     if (saved) {
       this.blacklist = JSON.parse(saved);
-      this.isCustom = true;
     } else {
       this.blacklistService.getDefaultBlacklist().subscribe(list => {
         this.blacklist = list;
-        this.isCustom = false;
       });
     }
   }
@@ -51,7 +51,7 @@ export class BlacklistCustomizerComponent implements OnInit {
     localStorage.removeItem('custom-blacklist');
     this.blacklistService.getDefaultBlacklist().subscribe(list => {
       this.blacklist = list;
-      this.isCustom = false;
+      this.isSaved = false;
     });
   }
 }

@@ -1,17 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~typeface-roboto';
-body{
+
+body {
   margin: 0;
   text-align: center;
   background-color: #141414;
 }
 
-*{
+* {
   color: white;
   font-family: 'Roboto', sans-serif;
 }
 
-.card{
+.card {
   background-color: #323232;
   border-radius: 15px;
   display: flex;
@@ -22,7 +23,9 @@ body{
   margin: auto;
 }
 
-input, textarea, select{
+input,
+textarea,
+select {
   border-radius: 10px;
   border: none;
   background-color: #1E1E1E;
@@ -30,14 +33,15 @@ input, textarea, select{
 
 }
 
-input{
+input {
   line-height: 2rem;
 }
-select{
+
+select {
   height: 2rem;
 }
 
-button{
+button {
 
   padding: 12px 24px;
   border-radius: 30px;
@@ -50,39 +54,54 @@ button{
   cursor: pointer;
 
 
-  &.principal{
+  &.principal {
     background-color: #c17618;
     color: #fff;
     border: none;
+
     &:hover {
       background-color: #e38612;
     }
   }
 
-  &.secondary{
+  &.secondary {
     background-color: transparent;
     color: #fff;
     border: 1px solid #fff;
+
     &:hover {
       background-color: #fff;
       color: #000;
     }
   }
 
-  &:disabled{
+  &:disabled {
     background-color: #EFEFEF4D !important;
     cursor: default;
   }
 
+  &.delete {
+    padding: 10px 17px;
+    background-color: transparent;
+    color: #E57373;
+    border: 1px solid #E57373;
+
+    &:hover {
+      background-color: #E57373;
+      color: #000;
+    }
+  }
+
+
 }
 
-img{
+img {
   border-radius: 50%;
   width: 100px;
   height: 100px;
 }
 
-.button-row{
+.button-row {
   display: flex;
   justify-content: space-around;
   margin-top: 1rem;
