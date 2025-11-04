@@ -27,7 +27,8 @@ export class SongsComponent implements OnInit {
   sortDescending: boolean = false;
   filters: { id: string, selected: boolean, description: string }[] = [
     { id: "NOFEAT", selected: false, description: "Exclude features" },
-    { id: "NOALBUMS", selected: false, description: "Only singles" }
+    { id: "NOALBUMS", selected: false, description: "Only singles" },
+    { id: "NOSHORT", selected: false, description: "Remove songs shorter than 1min" }
   ];
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private router: Router, private blacklistService: BlacklistService) { }
@@ -203,6 +204,8 @@ export class SongsComponent implements OnInit {
 
     album.songs.forEach(song => {
       let reason = this.getReasonToNotSelect(song);
+      // NOSHORT filter: exclude songs shorter than 1min
+
       song.reasonForNotSelect = reason;
       if (reason == null) {
         this.alreadyAdded.push(song);
@@ -213,6 +216,10 @@ export class SongsComponent implements OnInit {
   getReasonToNotSelect(song: Song): string | null {
     if (!song.artists.some(c => c.id == this.input)) {
       return `Not their song`;
+    }
+
+    if (this.filters.some(c => c.selected && c.id == 'NOSHORT') && song.durationMs < 60000) {
+      return 'Shorter than 1min';
     }
 
     if (this.alreadyAdded.some(c => c.name == song.name)) {

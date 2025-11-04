@@ -8,13 +8,13 @@
   </div>
   <div class="filter-container">
     <div *ngIf="filtersVisible" class="filters">
-      <div *ngFor="let filter of filters" class="filter">
-        <input type="checkbox" [id]="'filter-'+filter.id" [(ngModel)]="filter.selected" (change)="restartSelection()">
-        <label [attr.for]="'filter-'+filter.id">{{filter.description}}</label>
-      </div>
       <div class="filter">
         <input type="checkbox" id="filter-sort" [(ngModel)]="sortDescending" (change)="toggleSort()">
         <label for="filter-sort">Newest first</label>
+      </div>
+      <div *ngFor="let filter of filters" class="filter">
+        <input type="checkbox" [id]="'filter-'+filter.id" [(ngModel)]="filter.selected" (change)="restartSelection()">
+        <label [attr.for]="'filter-'+filter.id">{{filter.description}}</label>
       </div>
     </div>
   </div>
