@@ -26,9 +26,10 @@ export class SongsComponent implements OnInit {
   filtersVisible: boolean = false;
   sortDescending: boolean = false;
   filters: { id: string, selected: boolean, description: string }[] = [
-    { id: "NOFEAT", selected: false, description: "Exclude features" },
+    { id: "NOFEAT", selected: false, description: "Only their songs" },
     { id: "NOALBUMS", selected: false, description: "Only singles" },
-    { id: "NOSHORT", selected: false, description: "Remove songs shorter than 1min" }
+    { id: "NOSHORT", selected: false, description: "Remove songs shorter than 1min" },
+    { id: "BLACKLIST", selected: true, description: "Apply blacklist words" }
   ];
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private router: Router, private blacklistService: BlacklistService) { }
@@ -226,9 +227,11 @@ export class SongsComponent implements OnInit {
       return "Already added";
     }
 
-    if (this.blacklist.some(c => song.name.toLowerCase().includes(c))) {
-      let word = this.blacklist.find(c => song.name.toLowerCase().includes(c));
-      return `Includes word '${word}'`;
+    if (this.filters.some(c => c.selected && c.id == 'BLACKLIST')) {
+      if (this.blacklist.some(c => song.name.toLowerCase().includes(c))) {
+        let word = this.blacklist.find(c => song.name.toLowerCase().includes(c));
+        return `Includes word '${word}'`;
+      }
     }
 
     if (this.filters.some(c => c.selected && c.id == 'NOFEAT')) {

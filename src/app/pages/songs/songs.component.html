@@ -1,6 +1,6 @@
 <div class="slidecontainer" class="card">
   <div class="button-row">
-    <button (click)="toggleFilters()" class="secondary">Filters</button>
+    <button (click)="toggleFilters()" class="secondary">Options</button>
     <button (click)="createPlaylist()" class="principal" [disabled]="!loadCompleted">
       <span *ngIf="!loadCompleted">Searching... {{counter}}</span>
       <span *ngIf="loadCompleted">Confirm</span>
