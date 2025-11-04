@@ -1,11 +1,12 @@
-.blacklist-container h2 {
-  margin-bottom: 1rem;
+h2 {
+  margin: 0;
 }
 
-.blacklist-container form {
+form {
   display: flex;
   gap: 0.5rem;
   margin-bottom: 1rem;
+  margin-top: 1rem;
 
   input {
     text-align: left;
@@ -13,12 +14,12 @@
   }
 }
 
-.blacklist-container ul {
+ul {
   list-style: none;
   padding: 0;
 }
 
-.blacklist-container li {
+li {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,4 +37,6 @@
 
 .button-row {
   justify-content: space-between;
+  align-items: center;
+  margin: 0;
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BlacklistService } from '../../services/blacklist.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blacklist-customizer',
@@ -10,12 +11,27 @@ export class BlacklistCustomizerComponent implements OnInit {
   blacklist: string[] = [];
   newItem: string = '';
   isSaved: boolean = false;
+  artistId: string | null = null;
 
-
-  constructor(private blacklistService: BlacklistService) { }
+  constructor(
+    private blacklistService: BlacklistService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe(params => {
+      this.artistId = params.get('artist');
+    });
     this.loadBlacklist();
+  }
+
+  returnToSongs() {
+    if (this.artistId) {
+      this.router.navigate(['/songs'], { queryParams: { artist: this.artistId } });
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 
   addItem() {

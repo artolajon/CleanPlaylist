@@ -1,5 +1,9 @@
 <div class="blacklist-container card">
-  <h2>Customize Blacklist</h2>
+  <div class="button-row">
+    <h2>Customize Blacklist</h2>
+    <button (click)="returnToSongs()" class="secondary">X</button>
+  </div>
+
   <form (submit)="addItem(); $event.preventDefault();">
     <input [(ngModel)]="newItem" name="blacklistItem" placeholder="Add item to blacklist" required />
     <button type="submit" class="secondary">Add</button>
