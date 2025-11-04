@@ -24,8 +24,7 @@ export class SongsComponent implements OnInit {
   counter: number = 0;
   artist: Artist;
   filtersVisible: boolean = false;
-  // sorting: 'DESC' = newest first, 'ASC' = oldest first
-  sortDirection: 'DESC' | 'ASC' = 'DESC';
+  sortDescending: boolean = false;
   filters: { id: string, selected: boolean, description: string }[] = [
     { id: "NOFEAT", selected: false, description: "Exclude features" },
     { id: "NOALBUMS", selected: false, description: "Only singles" }
@@ -98,7 +97,6 @@ export class SongsComponent implements OnInit {
    * Toggle sort direction and re-order albums.
    */
   toggleSort() {
-    this.sortDirection = this.sortDirection === 'DESC' ? 'ASC' : 'DESC';
     this.sortAlbums();
     this.restartSelection();
   }
@@ -110,7 +108,7 @@ export class SongsComponent implements OnInit {
     this.albums.sort((a: Album, b: Album) => {
       const ta = this.getTimeFromDate(a.releaseDate);
       const tb = this.getTimeFromDate(b.releaseDate);
-      return this.sortDirection === 'DESC' ? tb - ta : ta - tb;
+      return this.sortDescending ? tb - ta : ta - tb;
     });
   }
 

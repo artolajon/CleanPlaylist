@@ -1,7 +1,6 @@
 <div class="slidecontainer" class="card">
   <div class="button-row">
     <button (click)="toggleFilters()" class="secondary">Filters</button>
-    <button (click)="toggleSort()" class="secondary">Sort: {{ sortDirection === 'DESC' ? 'Date ↓' : 'Date ↑' }}</button>
     <button (click)="createPlaylist()" class="principal" [disabled]="!loadCompleted">
       <span *ngIf="!loadCompleted">Searching... {{counter}}</span>
       <span *ngIf="loadCompleted">Confirm</span>
@@ -12,6 +11,10 @@
       <div *ngFor="let filter of filters" class="filter">
         <input type="checkbox" [id]="'filter-'+filter.id" [(ngModel)]="filter.selected" (change)="restartSelection()">
         <label [attr.for]="'filter-'+filter.id">{{filter.description}}</label>
+      </div>
+      <div class="filter">
+        <input type="checkbox" id="filter-sort" [(ngModel)]="sortDescending" (change)="toggleSort()">
+        <label for="filter-sort">Newest first</label>
       </div>
     </div>
   </div>
