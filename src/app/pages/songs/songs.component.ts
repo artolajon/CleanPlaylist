@@ -8,9 +8,10 @@ import { BlacklistService } from 'src/app/services/blacklist.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 
 @Component({
-  selector: 'app-songs',
-  templateUrl: './songs.component.html',
-  styleUrls: ['./songs.component.scss']
+    selector: 'app-songs',
+    templateUrl: './songs.component.html',
+    styleUrls: ['./songs.component.scss'],
+    standalone: false
 })
 export class SongsComponent implements OnInit {
 

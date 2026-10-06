@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,28 +16,21 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { ErrorsComponent } from './components/errors/errors.component';
 import { BlacklistCustomizerComponent } from './components/blacklist-customizer/blacklist-customizer.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    IndexComponent,
-    SongsComponent,
-    PlaylistComponent,
-    ArtistCardComponent,
-    LandingComponent,
-    PrivacyComponent,
-    AboutComponent,
-    ContactComponent,
-    ErrorsComponent,
-    BlacklistCustomizerComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        IndexComponent,
+        SongsComponent,
+        PlaylistComponent,
+        ArtistCardComponent,
+        LandingComponent,
+        PrivacyComponent,
+        AboutComponent,
+        ContactComponent,
+        ErrorsComponent,
+        BlacklistCustomizerComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

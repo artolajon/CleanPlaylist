@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { SpotifyService } from './services/spotify.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent {
   title = 'CleanPlaylist | Full Discography Playlist Generator';

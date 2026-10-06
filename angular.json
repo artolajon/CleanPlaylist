@@ -30,6 +30,7 @@
               "src/manifest.json"
             ],
             "styles": [
+              "node_modules/typeface-roboto/index.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -71,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "CleanPlaylistGenerator:build:production"
+              "buildTarget": "CleanPlaylistGenerator:build:production"
             },
             "development": {
-              "browserTarget": "CleanPlaylistGenerator:build:development"
+              "buildTarget": "CleanPlaylistGenerator:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "CleanPlaylistGenerator:build"
+            "buildTarget": "CleanPlaylistGenerator:build"
           }
         },
         "test": {
@@ -98,12 +99,39 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/typeface-roboto/index.css",
               "src/styles.scss"
             ],
             "scripts": []
           }
         }
       }
+    }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
     }
   }
 }

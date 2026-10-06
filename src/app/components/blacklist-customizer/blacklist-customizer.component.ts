@@ -3,9 +3,10 @@ import { BlacklistService } from '../../services/blacklist.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-blacklist-customizer',
-  templateUrl: './blacklist-customizer.component.html',
-  styleUrls: ['./blacklist-customizer.component.scss']
+    selector: 'app-blacklist-customizer',
+    templateUrl: './blacklist-customizer.component.html',
+    styleUrls: ['./blacklist-customizer.component.scss'],
+    standalone: false
 })
 export class BlacklistCustomizerComponent implements OnInit {
   blacklist: string[] = [];

@@ -6,9 +6,10 @@ import { Song } from 'src/app/interfaces/song';
 import { SpotifyService } from 'src/app/services/spotify.service';
 
 @Component({
-  selector: 'app-playlist',
-  templateUrl: './playlist.component.html',
-  styleUrls: ['./playlist.component.scss']
+    selector: 'app-playlist',
+    templateUrl: './playlist.component.html',
+    styleUrls: ['./playlist.component.scss'],
+    standalone: false
 })
 export class PlaylistComponent implements OnInit {
 
