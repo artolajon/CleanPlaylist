@@ -1,0 +1,8 @@
+{
+  "name": "clean-playlist",
+  "compatibility_date": "2026-10-13",
+  "assets": {
+    "directory": "./dist/no-remix-playlist-generator/",
+    "not_found_handling": "single-page-application"
+  }
+}

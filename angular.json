@@ -26,7 +26,6 @@
             "assets": [
               "src/favicon.svg",
               "src/assets",
-              "src/_redirects",
               "src/manifest.json"
             ],
             "styles": [
